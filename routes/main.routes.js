@@ -1,12 +1,20 @@
 const express = require('express');
+const commonUtil = require('../commonUtil');
 var router = express.Router();
 const generator = require('../generator');
 const fsprom = require('fs').promises;
 const fs = require('fs');
 const AdmZip = require('adm-zip');
 
+
 router.get('/', (req, res) => {
   res.status(200).send('this is magneto api');
+});
+
+router.post('/masterPayload', async (req, res) => {
+  const magnetoPayload = await commonUtil.convertMasterPayload(req.body);
+  await generator.reactGenerator(magnetoPayload);
+  res.status(200).send(magnetoPayload);
 });
 
 router.get('/template', (req, res) => {

@@ -71,14 +71,14 @@ const readExcelFile = () => {
   return masterLayout;
 };
 
-const reactGenerator = async () => {
+const reactGenerator = async (magnetoPayload) => {
   return new Promise((resolve, reject) => {
     const directory = './output/';
     fs.mkdir(directory, (err) => {
       if (err) {
         console.log('error while creating project directory -1');
       } else {
-        const masterLayout = readExcelFile();
+        const masterLayout = magnetoPayload;
 
         projName = masterLayout.componentName;
         let layout = masterLayout.layout || 'row';
